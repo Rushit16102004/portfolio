@@ -1,0 +1,13 @@
+# Operating System
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

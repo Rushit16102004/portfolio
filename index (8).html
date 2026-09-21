@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rushit Bodra — Machine Learning & AI Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   EDIT ME: search "EDIT:" for spots to double-check — mainly your
+   LinkedIn/GitHub URLs, live project links, and screenshots.
+   ================================================================ */
+
+:root{
+  --bg:#101116;
+  --bg-2:#171820;
+  --card:#15161D;
+  --card-2:#1B1D27;
+  --ink:#F6F5F1;
+  --muted:#9C9EAB;
+  --line:#262A38;
+  --signal:#9B8CFF;
+  --signal-2:#FFB878;
+  --signal-glow:rgba(155,140,255,.35);
+  --signal-2-glow:rgba(255,184,120,.28);
+  --green:#3ECF6C;
+
+  --display:'Archivo', sans-serif;
+  --body:'Inter', sans-serif;
+  --mono:'JetBrains Mono', monospace;
+  --text-soft:#C9C9D2;
+}
+
+/* ---------------- light theme override ---------------- */
+html[data-theme="light"]{
+  --bg:#F7F6F3;
+  --bg-2:#EFEEE9;
+  --card:#FFFFFF;
+  --card-2:#F1F0EC;
+  --ink:#15161D;
+  --muted:#5C5E6B;
+  --line:#DFDDD5;
+  --signal:#6B4FE0;
+  --signal-2:#D4790A;
+  --signal-glow:rgba(107,79,224,.22);
+  --signal-2-glow:rgba(212,121,10,.18);
+  --green:#1E9E4E;
+  --text-soft:#3A3B45;
+}
+html[data-theme="light"] body{ background:var(--bg); }
+html[data-theme="light"] .navbar{ background:rgba(247,246,243,.78); }
+html[data-theme="light"] .window-bar{ background:#EAE8E2; }
+html[data-theme="light"] .window-actions{ background:#F1F0EC; }
+html[data-theme="light"] .avatar-tag{ background:rgba(247,246,243,.75); }
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--body);
+  line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  transition:background .35s ease, color .35s ease;
+}
+::selection{background:var(--signal); color:#0A0A0D;}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+ul{list-style:none;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+
+#dot{
+  position:fixed; width:7px; height:7px; border-radius:50%; background:var(--signal);
+  pointer-events:none; z-index:999; transform:translate(-50%,-50%);
+  transition:transform .12s ease, opacity .2s, background .2s; opacity:0; box-shadow:0 0 14px var(--signal);
+  top:0; left:0;
+}
+#ring{
+  position:fixed; width:34px; height:34px; border-radius:50%; border:1px solid var(--signal);
+  pointer-events:none; z-index:998; transform:translate(-50%,-50%); opacity:0;
+  transition:opacity .25s, width .25s, height .25s, border-color .25s, background .25s;
+  top:0; left:0;
+}
+#ring::before{
+  content:''; position:absolute; inset:-6px; border-radius:50%;
+  border:1px dashed var(--signal-glow); animation:ringSpin 6s linear infinite;
+}
+#ring.hover::before{ opacity:0; }
+@keyframes ringSpin{ to{ transform:rotate(360deg); } }
+#ring.hover{ width:54px; height:54px; background:var(--signal-glow); border-color:transparent; }
+@media (hover:hover) and (pointer:fine){ #dot{opacity:1;} #ring{opacity:.7;} }
+
+/* comet-trail cursor effect — a fading, glowing trail that follows the pointer */
+#cursor-trail{ position:fixed; inset:0; z-index:997; pointer-events:none; }
+
+/* ---------------- floating background particles ---------------- */
+#particles{ position:fixed; inset:0; z-index:5; pointer-events:none; overflow:hidden; }
+#particles span{
+  position:absolute; bottom:-10px; border-radius:50%; background:var(--signal);
+  opacity:0; animation:particleRise linear infinite;
+}
+@keyframes particleRise{
+  0%{ transform:translateY(0) translateX(0); opacity:0; }
+  8%{ opacity:.55; }
+  92%{ opacity:.35; }
+  100%{ transform:translateY(-108vh) translateX(var(--drift,20px)); opacity:0; }
+}
+
+/* ---------------- always-on network animation, sits behind everything ----------------
+   This runs continuously in the background of the whole page — it is not a hover effect
+   and does not respond to the pointer. It quietly drifts on its own the entire time. */
+#net-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.85; }
+@media (max-width:600px){ #net-bg{ opacity:.65; } }
+
+/* subtle grid texture behind the hero for a technical backdrop (static — animating a full-viewport masked gradient every frame is too costly to repaint) */
+#grid-bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.35;
+  background-image:linear-gradient(rgba(220,215,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(220,215,255,.07) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(circle at 50% 0%, rgba(0,0,0,.9), transparent 70%);
+  -webkit-mask-image:radial-gradient(circle at 50% 0%, rgba(0,0,0,.9), transparent 70%);
+}
+@media (prefers-reduced-motion: reduce){ #particles span{animation:none; opacity:0;} }
+
+/* subtle grain texture + soft top highlight — adds depth so the dark background
+   doesn't read as flat pure-black */
+#grain-bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+html[data-theme="light"] #grain-bg{ opacity:.25; }
+#highlight-bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 70% 40% at 50% -5%, rgba(255,255,255,.1), transparent 65%);
+}
+html[data-theme="light"] #highlight-bg{ background:radial-gradient(ellipse 70% 40% at 50% -5%, rgba(255,255,255,.5), transparent 65%); }
+
+/* FIXED: ambient glow now uses a fading radial-gradient, not a solid
+   color + blur. Even if blur is unsupported, it degrades to a soft
+   see-through gradient instead of a solid block covering content. */
+.blob{ position:fixed; z-index:0; pointer-events:none; filter:blur(90px); }
+.blob-1{
+  width:560px; height:560px; top:-220px; right:-220px; border-radius:50%;
+  background:radial-gradient(circle, rgba(140,124,255,.45) 0%, rgba(140,124,255,0) 70%);
+  animation:float1 24s ease-in-out infinite;
+}
+.blob-2{
+  width:460px; height:460px; bottom:-100px; left:-160px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,176,103,.25) 0%, rgba(255,176,103,0) 70%);
+  animation:float2 28s ease-in-out infinite;
+}
+.blob-3{
+  width:420px; height:420px; top:38%; left:50%; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 70%);
+  animation:float3 34s ease-in-out infinite;
+}
+@keyframes float1{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(-50px,50px);} }
+@keyframes float2{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(40px,-30px);} }
+@keyframes float3{ 0%,100%{transform:translate(-50%,0);} 50%{transform:translate(-50%,60px);} }
+
+.shell{ position:relative; z-index:1; }
+
+/* ---------------- progress bar ---------------- */
+#progress{ position:fixed; top:0; left:0; height:2px; width:0%; background:linear-gradient(90deg,var(--signal),var(--signal-2)); z-index:1001; transition:width .1s linear; }
+
+/* ---------------- top navbar (replaces the old fixed sidebar so content
+   gets the full page width back) ---------------- */
+.navbar{
+  position:sticky; top:0; z-index:1000; display:flex; align-items:center; justify-content:space-between;
+  padding:18px clamp(20px,4vw,56px); border-bottom:1px solid var(--line);
+  background:rgba(10,10,13,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  transition:padding .25s ease, box-shadow .25s ease;
+}
+.navbar.scrolled{ padding:12px clamp(20px,4vw,56px); box-shadow:0 8px 30px rgba(0,0,0,.35); }
+.nav-mark{font-family:var(--display); font-weight:800; font-size:15px; letter-spacing:-.01em; display:flex; align-items:center; gap:10px; z-index:2;}
+.nav-mark span{color:var(--signal);}
+.nav-mark .status-dot{display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulseDot 2s ease-in-out infinite;}
+@keyframes pulseDot{ 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.5; transform:scale(1.3);} }
+
+.navbar nav{display:flex; align-items:center; gap:30px;}
+.navbar nav a{position:relative; font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--muted); display:flex; gap:7px; padding:4px 0; transition:color .2s;}
+.navbar nav a::before{content:attr(data-n); color:var(--signal); font-weight:500;}
+.navbar nav a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--signal); transition:width .25s ease;}
+.navbar nav a:hover{color:var(--ink);}
+.navbar nav a:hover::after, .navbar nav a.active::after{width:100%;}
+.navbar nav a.active{color:var(--ink);}
+
+.nav-right{display:flex; align-items:center; gap:18px;}
+.nav-status{font-family:var(--mono); font-size:10.5px; color:var(--muted); display:flex; align-items:center; white-space:nowrap;}
+.nav-socials{display:flex; gap:10px;}
+.nav-socials a{font-family:var(--mono); font-size:10px; color:var(--muted); border:1px solid var(--line); padding:6px 9px; border-radius:20px; transition:.2s;}
+.nav-socials a:hover{color:var(--ink); border-color:var(--signal); transform:translateY(-2px);}
+
+.nav-cta{
+  font-family:var(--mono); font-size:11.5px; font-weight:600; color:#0A0A0D; background:var(--signal);
+  padding:9px 16px; border-radius:20px; white-space:nowrap; transition:.2s; flex-shrink:0;
+}
+.nav-cta:hover{ background:#8674FF; box-shadow:0 6px 18px var(--signal-glow); transform:translateY(-2px); }
+@media (max-width:900px){ .nav-cta{ display:none; } }
+
+/* theme toggle */
+.theme-toggle{
+  width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:transparent;
+  color:var(--muted); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  transition:border-color .2s, color .2s, transform .2s;
+}
+.theme-toggle:hover{ border-color:var(--signal); color:var(--signal); transform:translateY(-2px) rotate(12deg); }
+.theme-toggle svg{ width:15px; height:15px; }
+.theme-toggle .sun{ display:none; }
+html[data-theme="light"] .theme-toggle .moon{ display:none; }
+html[data-theme="light"] .theme-toggle .sun{ display:block; }
+
+/* command palette launcher pill */
+.cmdk-trigger{
+  display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; color:var(--muted);
+  border:1px solid var(--line); border-radius:20px; padding:7px 12px; cursor:pointer; transition:.2s; flex-shrink:0;
+  background:transparent;
+}
+.cmdk-trigger:hover{ border-color:var(--signal); color:var(--signal); }
+.cmdk-trigger kbd{
+  font-family:var(--mono); font-size:10px; border:1px solid var(--line); border-radius:4px; padding:1px 5px;
+  color:var(--muted);
+}
+@media (max-width:900px){ .cmdk-trigger .cmdk-label{ display:none; } .cmdk-trigger{ padding:7px 9px; } }
+
+.burger{ display:none; width:34px; height:34px; border:1px solid var(--line); border-radius:8px; background:transparent; position:relative; cursor:pointer; z-index:1002; flex-shrink:0; }
+.burger span{ position:absolute; left:8px; width:18px; height:1.5px; background:var(--ink); transition:transform .3s ease, opacity .2s ease; }
+.burger span:nth-child(1){top:12px;}
+.burger span:nth-child(2){top:17px;}
+.burger span:nth-child(3){top:22px;}
+.burger.open span:nth-child(1){transform:translateY(5px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-5px) rotate(-45deg);}
+
+@media (max-width:900px){
+  .navbar nav{
+    position:fixed; inset:0 0 0 auto; width:min(78vw,320px); height:100vh; z-index:1001;
+    flex-direction:column; align-items:flex-start; justify-content:center; gap:26px;
+    background:var(--bg-2); border-left:1px solid var(--line); padding:32px;
+    transform:translateX(100%); transition:transform .35s cubic-bezier(.65,0,.35,1);
+  }
+  .navbar nav.open{ transform:translateX(0); }
+  .navbar nav a{font-size:14px;}
+  .nav-status, .nav-socials{display:none;}
+  .burger{display:block;}
+  .nav-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(2px); z-index:1000; opacity:0; pointer-events:none; transition:opacity .3s ease; }
+  .nav-scrim.open{ opacity:1; pointer-events:auto; }
+}
+
+main{max-width:1280px; margin:0 auto; padding:0 clamp(20px,3.5vw,48px); position:relative; z-index:1;}
+
+section{padding:110px 0; opacity-transition: none;}
+section:first-of-type{padding-top:64px;}
+@media (max-width:900px){ section{padding:64px 0;} }
+@media (max-width:480px){ section{padding:48px 0;} .navbar{padding:14px 18px;} main{padding:0 18px;} }
+
+.eyebrow{font-family:var(--mono); font-size:12px; color:var(--signal); letter-spacing:.06em; text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.eyebrow::before{content:''; width:24px; height:1px; background:var(--signal);}
+
+/* hero */
+.hero{display:grid; grid-template-columns:1.3fr .7fr; gap:48px; align-items:start;}
+@media (max-width:820px){ .hero{grid-template-columns:1fr; gap:32px;} .hero .avatar-frame{order:-1; max-width:280px; margin:0 auto;} }
+@media (max-width:480px){ .hero-actions{flex-direction:column; align-items:stretch;} .hero-actions .btn{justify-content:center;} }
+.hero h1{font-family:var(--display); font-weight:900; font-size:clamp(30px,4vw,54px); letter-spacing:-.03em; line-height:1.08; text-shadow:0 0 46px rgba(255,255,255,.14);}
+.hero h1 em{font-style:normal; background:linear-gradient(90deg,var(--signal),var(--signal-2),var(--signal)); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradientShift 6s ease-in-out infinite;}
+@keyframes gradientShift{ 0%{background-position:0% center;} 50%{background-position:100% center;} 100%{background-position:0% center;} }
+.hero .role{font-family:var(--mono); font-size:13px; color:var(--muted); margin-top:22px; display:flex; align-items:center; gap:8px;}
+.cursor-blink{display:inline-block; width:7px; height:14px; background:var(--signal); animation:blink 1s step-end infinite;}
+@keyframes blink{ 50%{opacity:0;} }
+.hero .lede{font-size:16.5px; color:var(--text-soft); max-width:560px; margin-top:22px;}
+.hero-meta{display:flex; gap:36px; margin-top:44px; flex-wrap:wrap;}
+.hero-meta .item .num{font-family:var(--display); font-weight:800; font-size:26px; color:var(--ink);}
+.hero-meta .item .lab{font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:4px;}
+@media (max-width:480px){ .hero-meta{gap:22px 28px;} }
+.btn{display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:13px; padding:14px 22px; border:1px solid var(--line); border-radius:2px; margin-top:40px; transition:.18s;}
+.btn:hover{border-color:var(--signal); color:var(--signal); transform:translateY(-2px);}
+.btn.primary{background:var(--signal); border-color:var(--signal); color:#0A0A0D; font-weight:600; box-shadow:0 0 0 0 var(--signal-glow);}
+.btn.primary:hover{background:#8674FF; color:#0A0A0D; box-shadow:0 8px 28px var(--signal-glow); transform:translateY(-2px) scale(1.02);}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+.hero-subcta{ margin-top:18px; font-family:var(--mono); font-size:12.5px; }
+.hero-subcta a{ color:var(--muted); border-bottom:1px dashed var(--line); padding-bottom:2px; transition:.18s; }
+.hero-subcta a:hover{ color:var(--signal); border-bottom-color:var(--signal); }
+
+.avatar-frame{
+  position:relative; aspect-ratio:1/1.1; border-radius:14px; overflow:visible;
+  background:linear-gradient(160deg,var(--card),var(--card-2));
+  display:flex; align-items:center; justify-content:center; padding:12px;
+  transition:transform .3s ease, box-shadow .4s ease; transform-style:preserve-3d; will-change:transform;
+  box-shadow:0 0 60px -20px var(--signal-glow), 0 0 90px -30px rgba(255,255,255,.25);
+  margin-top:40px;
+}
+.avatar-frame:hover{ box-shadow:0 0 70px -12px var(--signal-glow), 0 0 100px -20px rgba(255,255,255,.32); }
+.avatar-frame::before{
+  content:''; position:absolute; inset:0; border-radius:14px; overflow:hidden;
+  background:radial-gradient(circle at 30% 20%, rgba(140,124,255,.45), transparent 60%),
+             radial-gradient(circle at 80% 80%, rgba(255,176,103,.3), transparent 55%),
+             radial-gradient(circle at 50% 0%, rgba(255,255,255,.2), transparent 45%);
+  animation:pulseGlow 8s ease-in-out infinite;
+}
+@keyframes pulseGlow{ 0%,100%{opacity:.7;} 50%{opacity:1;} }
+
+/* live particle canvas — sits behind the photo, in the padding gap;
+   runs continuously via requestAnimationFrame, not tied to hover */
+#avatarCanvas{ position:absolute; inset:0; z-index:0; border-radius:14px; opacity:.9; }
+
+/* rotating gradient ring — sits just outside the frame, always spinning slowly */
+.avatar-ring{
+  position:absolute; inset:-4px; border-radius:16px; padding:2px; z-index:0;
+  background:conic-gradient(from 0deg, var(--signal), transparent 30%, var(--signal-2) 55%, transparent 80%, var(--signal));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  animation:ringRotate 7s linear infinite; opacity:.85;
+}
+@keyframes ringRotate{ to{ transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){ .avatar-ring{ animation:none; } }
+
+/* inner photo well — inset from the outer frame so the pulsing glow
+   above is actually visible as a border around the photo */
+.avatar-photo{ position:relative; z-index:1; width:100%; height:100%; border-radius:8px; overflow:hidden; }
+.avatar-photo img{position:relative; z-index:1; width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block;}
+
+/* scan-line sweep — ties into the AI/ML theme, reads as "processing" */
+.avatar-scan{
+  position:absolute; left:0; right:0; height:26%; z-index:2; pointer-events:none;
+  background:linear-gradient(180deg, transparent, rgba(155,140,255,.35), rgba(255,255,255,.5), rgba(155,140,255,.35), transparent);
+  animation:scanSweep 4.5s cubic-bezier(.4,0,.2,1) infinite;
+  mix-blend-mode:screen;
+}
+@keyframes scanSweep{ 0%{ top:-30%; } 55%{ top:100%; } 100%{ top:100%; } }
+@media (prefers-reduced-motion: reduce){ .avatar-scan{ display:none; } }
+
+/* corner brackets — viewfinder/targeting accent framing the photo */
+.avatar-photo .corner{ position:absolute; width:16px; height:16px; z-index:3; border:2px solid var(--signal); opacity:.9; }
+.avatar-photo .corner.tl{ top:8px; left:8px; border-right:none; border-bottom:none; }
+.avatar-photo .corner.tr{ top:8px; right:8px; border-left:none; border-bottom:none; }
+.avatar-photo .corner.bl{ bottom:8px; left:8px; border-right:none; border-top:none; }
+.avatar-photo .corner.br{ bottom:8px; right:8px; border-left:none; border-top:none; }
+.avatar-tag{
+  position:absolute; bottom:14px; left:14px; z-index:2; font-family:var(--mono); font-size:10px; color:var(--ink);
+  background:rgba(10,10,13,.6); backdrop-filter:blur(6px); padding:6px 10px; border-radius:20px; border:1px solid var(--line);
+}
+
+.sec-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; gap:24px; flex-wrap:wrap;}
+.sec-head h2{font-family:var(--display); font-weight:800; font-size:clamp(26px,3vw,40px); letter-spacing:-.02em;}
+.sec-head p{font-family:var(--mono); font-size:13.5px; color:var(--muted); max-width:300px;}
+
+/* trust signals */
+.trust-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+@media (max-width:900px){ .trust-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:480px){ .trust-grid{grid-template-columns:1fr;} }
+.tcell{ background:var(--card); padding:28px 24px; transition:background .25s, transform .25s; position:relative; overflow:hidden; }
+.tcell:hover{ background:var(--card-2); transform:translateY(-3px); }
+.tcell::before{ content:''; position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,#fff,var(--signal),var(--signal-2)); transform:scaleX(0); transform-origin:left; transition:transform .35s ease; }
+.tcell:hover::before{ transform:scaleX(1); }
+.tcell .tnum{ font-family:var(--mono); font-size:11px; color:var(--signal); margin-bottom:14px; display:block;}
+.tcell h4{ font-family:var(--display); font-weight:700; font-size:16px; letter-spacing:-.01em; margin-bottom:10px; }
+.tcell p{ font-size:12.8px; color:var(--muted); line-height:1.6; }
+.trust-grid.reveal.in .tcell{ animation:fadeUp .55s cubic-bezier(.2,.7,.2,1) backwards; }
+.trust-grid .tcell:nth-child(1){animation-delay:.05s;}
+.trust-grid .tcell:nth-child(2){animation-delay:.14s;}
+.trust-grid .tcell:nth-child(3){animation-delay:.23s;}
+.trust-grid .tcell:nth-child(4){animation-delay:.32s;}
+
+/* how I work — reuses .tcell styling from trust-grid, 5 columns */
+.process-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+@media (max-width:900px){ .process-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:480px){ .process-grid{grid-template-columns:1fr;} }
+.process-grid.reveal.in .tcell{ animation:fadeUp .55s cubic-bezier(.2,.7,.2,1) backwards; }
+.process-grid .tcell:nth-child(1){animation-delay:.05s;}
+.process-grid .tcell:nth-child(2){animation-delay:.12s;}
+.process-grid .tcell:nth-child(3){animation-delay:.19s;}
+.process-grid .tcell:nth-child(4){animation-delay:.26s;}
+.process-grid .tcell:nth-child(5){animation-delay:.33s;}
+
+/* slogan banner */
+.slogan-strip{
+  position:relative; margin:0 0 20px; padding:52px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  text-align:center; overflow:hidden;
+}
+.slogan-strip::before{
+  content:''; position:absolute; inset:0; z-index:-1; opacity:.5;
+  background:radial-gradient(ellipse 60% 100% at 50% 0%, var(--signal-glow), transparent 70%);
+}
+.slogan-strip h3{
+  font-family:var(--display); font-weight:800; font-size:clamp(21px,2.6vw,32px); letter-spacing:-.02em; line-height:1.3;
+  max-width:820px; margin:0 auto;
+}
+.slogan-strip h3 .accent{
+  background:linear-gradient(90deg,var(--signal),var(--signal-2),var(--signal)); background-size:200% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradientShift 6s ease-in-out infinite;
+}
+.slogan-strip p{
+  font-family:var(--mono); font-size:12.5px; color:var(--muted); max-width:560px; margin:18px auto 0; line-height:1.75;
+}
+@media (max-width:600px){ .slogan-strip{padding:38px 0;} }
+
+.case{ border:1px solid var(--line); border-radius:12px; background:var(--card); margin-bottom:32px; overflow:hidden; transition:border-color .3s, transform .3s, box-shadow .3s; position:relative;}
+.case:hover{border-color:var(--signal); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.35), 0 0 0 1px var(--signal-glow), 0 0 40px -10px var(--signal-glow);}
+.case::after{
+  content:''; position:absolute; top:0; left:-60%; width:40%; height:100%; z-index:5; pointer-events:none;
+  background:linear-gradient(75deg, transparent, rgba(255,255,255,.06), transparent);
+  transform:skewX(-15deg); transition:left .7s ease;
+}
+.case:hover::after{ left:120%; }
+
+/* reusable CTA strip, used after Featured Work, Services, and How I Work */
+.cta-strip{
+  margin-top:40px; padding:32px 36px; border:1px solid var(--line); border-radius:12px; background:var(--card);
+  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+}
+.cta-strip p{ font-family:var(--display); font-weight:700; font-size:clamp(16px,2vw,20px); letter-spacing:-.01em; }
+.cta-strip .btn{ margin-top:0; flex-shrink:0; }
+@media (max-width:600px){ .cta-strip{ padding:24px 20px; flex-direction:column; align-items:flex-start; } }
+
+.case-top{padding:36px 36px 0; display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+@media (max-width:600px){ .case-top{padding:24px 20px 0;} }
+.case-index{font-family:var(--mono); font-size:12px; color:var(--signal);}
+.case-title{font-family:var(--display); font-weight:800; font-size:clamp(20px,2.4vw,28px); letter-spacing:-.01em; margin-top:10px;}
+.case-sub{color:var(--muted); font-size:14.5px; margin-top:10px; max-width:600px;}
+.case-tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
+.tag{font-family:var(--mono); font-size:10px; letter-spacing:.03em; text-transform:uppercase; padding:5px 10px; border:1px solid var(--line); border-radius:20px; color:var(--muted);}
+.case-meta{font-family:var(--mono); font-size:11.5px; color:var(--muted); text-align:right; line-height:1.9; white-space:nowrap;}
+.case-meta .role{color:var(--ink);}
+
+.window{ margin:28px 36px 0; border-radius:8px; overflow:hidden; border:1px solid var(--line); background:var(--bg-2); }
+@media (max-width:600px){ .window{margin:22px 20px 0;} }
+.window-bar{ display:flex; align-items:center; gap:8px; padding:10px 14px; background:#1A1B22; border-bottom:1px solid var(--line);}
+.window-bar .dots{display:flex; gap:6px;}
+.window-bar .dots span{width:9px; height:9px; border-radius:50%; background:#33343E;}
+.window-bar .urlbar{
+  flex:1; margin-left:10px; font-family:var(--mono); font-size:11px; color:var(--muted);
+  background:var(--bg); border:1px solid var(--line); border-radius:20px; padding:5px 12px; text-align:center;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.window-shot{ aspect-ratio:16/9; width:100%; position:relative; overflow:hidden; }
+.window-shot .grad{ width:100%; height:100%; transition:transform .5s ease; }
+.case:hover .window-shot .grad{ transform:scale(1.06); }
+.window-shot .grid-overlay{
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.window-shot .placeholder-label{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; color:rgba(255,255,255,.55); text-align:center; padding:20px;
+}
+
+/* ---------------- window-shot slideshow (auto-advancing screenshots) ---------------- */
+.window-shot .slideshow{ position:absolute; inset:0; }
+.window-shot .slideshow .slide{
+  position:absolute; inset:0; width:100%; height:100%; opacity:0;
+  visibility:hidden;
+  transition:opacity .5s ease, visibility .5s ease;
+  pointer-events:none;
+}
+.window-shot .slideshow .slide.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.window-shot .slideshow .slide img{ width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.window-shot .slideshow .slide.placeholder{ display:flex; align-items:center; justify-content:center; }
+.window-shot .slideshow .slide.placeholder .grad{ position:absolute; inset:0; }
+.window-shot .slideshow .slide.placeholder .placeholder-label{ position:relative; }
+.window-shot .slideshow-dots{
+  position:absolute; bottom:10px; left:50%; transform:translateX(-50%); z-index:2;
+  display:flex; gap:6px;
+}
+.window-shot .slideshow-dots span{
+  width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.35); transition:background .3s, transform .3s;
+  cursor:pointer;
+}
+.window-shot .slideshow-dots span:hover{ background:rgba(255,255,255,.75); transform:scale(1.2); }
+.window-shot .slideshow-dots span.active{ background:var(--signal); transform:scale(1.4); }
+.window-actions{ display:flex; justify-content:flex-end; gap:10px; padding:14px; background:#14151A; border-top:1px solid var(--line);}
+.mini-btn{
+  font-family:var(--mono); font-size:11px; padding:9px 14px; border-radius:20px; border:1px solid var(--line);
+  color:var(--muted); transition:.18s; display:inline-flex; align-items:center; gap:6px;
+}
+.mini-btn:hover{ border-color:var(--signal); color:var(--signal); }
+.mini-btn.live{ background:var(--signal); border-color:var(--signal); color:#0A0A0D; font-weight:600; }
+.mini-btn.live:hover{ background:#8674FF; color:#0A0A0D; box-shadow:0 6px 20px var(--signal-glow); }
+
+.case-detail{ padding:32px 36px 0; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:8px; border-top:1px solid var(--line);}
+@media (max-width:760px){ .case-detail{grid-template-columns:1fr;} }
+@media (max-width:600px){ .case-detail{padding:24px 20px 0;} }
+.dcell{ background:var(--card); padding:24px; }
+.case.reveal.in .dcell{ animation:fadeUp .55s cubic-bezier(.2,.7,.2,1) backwards; }
+.case-detail .dcell:nth-child(1){animation-delay:.05s;}
+.case-detail .dcell:nth-child(2){animation-delay:.15s;}
+.case-detail .dcell:nth-child(3){animation-delay:.25s;}
+.dcell h4{ font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--signal-2); margin-bottom:12px;}
+.dcell p{ font-size:13.6px; color:var(--text-soft); line-height:1.65; }
+
+.case-stack{ padding:24px 36px 36px; }
+@media (max-width:600px){ .case-stack{padding:20px 20px 28px;} }
+.stack-row{ display:flex; gap:32px; flex-wrap:wrap; }
+.stack-group h5{ font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;}
+.stack-chips{ display:flex; gap:8px; flex-wrap:wrap; max-width:360px; }
+.chip{ font-family:var(--mono); font-size:11px; padding:6px 11px; background:var(--card-2); border:1px solid var(--line); border-radius:6px; color:var(--ink); }
+
+/* other projects */
+.other-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+@media (max-width:760px){ .other-grid{grid-template-columns:1fr;} }
+.ocell{ background:var(--card); padding:26px; transition:background .2s, transform .25s; }
+.ocell:hover{ background:var(--card-2); transform:translateY(-3px); }
+.ocell .otag{ font-family:var(--mono); font-size:11.5px; color:var(--signal); text-transform:uppercase; letter-spacing:.05em; }
+.ocell h4{ font-family:var(--display); font-weight:700; font-size:18px; margin-top:10px;}
+.ocell p{ font-size:14px; color:var(--muted); margin-top:8px; line-height:1.6;}
+.ocell .olink{ font-family:var(--mono); font-size:12.5px; color:var(--muted); margin-top:16px; display:inline-flex; gap:6px; }
+.ocell:hover .olink{ color:var(--signal); }
+
+/* skills */
+.skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+@media (max-width:760px){ .skills-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:420px){ .skills-grid{grid-template-columns:1fr;} }
+.skillcell{ background:var(--card); padding:26px 22px; transition:background .2s; }
+.skillcell:hover{ background:var(--card-2); }
+.chip{ transition:transform .18s, border-color .18s, color .18s; }
+.chip:hover{ transform:translateY(-2px); border-color:var(--signal); color:var(--signal); box-shadow:0 6px 16px -4px var(--signal-glow); }
+.skillcell h5{ font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--signal); margin-bottom:14px;}
+.skillcell .chips{ display:flex; flex-wrap:wrap; gap:7px; }
+
+/* experience timeline */
+.timeline{ display:flex; flex-direction:column; }
+.trow{ border-top:1px solid var(--line); padding:26px 0; display:grid; grid-template-columns:150px 1fr; gap:20px;}
+.trow:last-child{border-bottom:1px solid var(--line);}
+@media (max-width:640px){ .trow{grid-template-columns:1fr;} }
+.trow .tdate{ font-family:var(--mono); font-size:11.5px; color:var(--signal); }
+.trow h4{ font-family:var(--display); font-weight:700; font-size:17px; }
+.trow .torg{ font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:4px;}
+.trow p{ font-size:13.5px; color:var(--text-soft); margin-top:10px; max-width:640px; line-height:1.6;}
+
+/* marquee */
+.marquee{
+  overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:56px 0;
+  mask-image:linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+}
+.marquee-track{ display:flex; gap:48px; white-space:nowrap; animation:scroll 30s linear infinite; width:max-content;}
+.marquee-track span{ font-family:var(--display); font-weight:700; font-size:20px; color:var(--muted); letter-spacing:-.01em;}
+.marquee-track span em{ font-style:normal; color:var(--signal); margin-right:10px;}
+@keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* services */
+.services{ display:flex; flex-direction:column; }
+.srow{ border-top:1px solid var(--line); padding:26px 0; display:flex; justify-content:space-between; align-items:baseline; gap:24px; flex-wrap:wrap;}
+.srow:last-child{ border-bottom:1px solid var(--line); }
+.srow h4{ font-family:var(--display); font-weight:700; font-size:18px; flex-shrink:0; min-width:220px;}
+.srow span{ font-family:var(--body); font-size:13.5px; color:var(--muted); text-align:right; max-width:420px; line-height:1.55;}
+@media (max-width:640px){ .srow{flex-direction:column; gap:8px;} .srow span{text-align:left; max-width:none;} }
+
+.about-intro{ font-size:16px; color:var(--text-soft); line-height:1.75; max-width:720px; }
+.about-credentials{ font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:22px; padding-top:22px; border-top:1px solid var(--line); }
+.quote-block{ margin-top:56px; }
+.quote{ font-family:var(--display); font-weight:600; font-size:clamp(20px,2.6vw,30px); line-height:1.35; letter-spacing:-.01em; max-width:820px; color:var(--ink); margin-top:18px;}
+.quote span{ color:var(--signal); }
+.quote-by{ font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:26px; }
+
+.contact h2{ font-family:var(--display); font-weight:900; font-size:clamp(32px,5vw,60px); letter-spacing:-.03em; line-height:1.04;}
+.contact-links{ margin-top:40px; display:flex; flex-direction:column; gap:2px;}
+.contact-links a{ font-family:var(--mono); font-size:14px; padding:16px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; transition:.18s;}
+.contact-links a:last-child{ border-bottom:1px solid var(--line); }
+.contact-links a:hover{ padding-left:12px; color:var(--signal); }
+.contact-links a .arrow{ opacity:0; transition:opacity .18s; }
+.contact-links a:hover .arrow{ opacity:1; }
+.contact-links.reveal.in a{ animation:slideIn .5s cubic-bezier(.2,.7,.2,1) backwards; }
+.contact-links a:nth-child(1){animation-delay:.05s;}
+.contact-links a:nth-child(2){animation-delay:.12s;}
+.contact-links a:nth-child(3){animation-delay:.19s;}
+.contact-links a:nth-child(4){animation-delay:.26s;}
+.contact-links a:nth-child(5){animation-delay:.33s;}
+@keyframes slideIn{ from{opacity:0; transform:translateX(-14px);} to{opacity:1; transform:translateX(0);} }
+
+/* back to top */
+#toTop{
+  position:fixed; right:24px; bottom:24px; width:44px; height:44px; border-radius:50%; z-index:900;
+  background:var(--card); border:1px solid var(--line); color:var(--ink); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; transform:translateY(12px) scale(.9); pointer-events:none; transition:opacity .3s, transform .3s, border-color .3s, box-shadow .3s;
+}
+#toTop.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+#toTop:hover{ border-color:var(--signal); color:var(--signal); box-shadow:0 8px 24px var(--signal-glow); transform:translateY(-3px) scale(1.04); }
+#toTop svg{ width:16px; height:16px; }
+
+/* ---------------- command palette (Cmd/Ctrl+K) ---------------- */
+#cmdk-overlay{
+  position:fixed; inset:0; z-index:2000; background:rgba(6,6,9,.65); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  display:flex; align-items:flex-start; justify-content:center; padding:12vh 20px 0;
+  opacity:0; pointer-events:none; transition:opacity .2s ease;
+}
+#cmdk-overlay.open{ opacity:1; pointer-events:auto; }
+.cmdk-panel{
+  width:100%; max-width:560px; background:var(--card); border:1px solid var(--line); border-radius:12px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5), 0 0 0 1px var(--signal-glow);
+  transform:translateY(-12px) scale(.98); transition:transform .22s cubic-bezier(.2,.7,.2,1); overflow:hidden;
+}
+#cmdk-overlay.open .cmdk-panel{ transform:translateY(0) scale(1); }
+.cmdk-input-row{ display:flex; align-items:center; gap:10px; padding:16px 18px; border-bottom:1px solid var(--line); }
+.cmdk-input-row svg{ width:16px; height:16px; color:var(--muted); flex-shrink:0; }
+#cmdk-input{
+  flex:1; background:transparent; border:none; outline:none; color:var(--ink); font-family:var(--body); font-size:15px;
+}
+#cmdk-input::placeholder{ color:var(--muted); }
+.cmdk-esc{ font-family:var(--mono); font-size:10px; color:var(--muted); border:1px solid var(--line); border-radius:4px; padding:2px 6px; flex-shrink:0; }
+.cmdk-list{ max-height:340px; overflow-y:auto; padding:8px; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
+.cmdk-list::-webkit-scrollbar{ width:8px; }
+.cmdk-list::-webkit-scrollbar-track{ background:transparent; }
+.cmdk-list::-webkit-scrollbar-thumb{ background:var(--line); border-radius:8px; border:2px solid var(--card); }
+.cmdk-list::-webkit-scrollbar-thumb:hover{ background:var(--signal); }
+.cmdk-item{
+  display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:8px; cursor:pointer; transition:background .12s;
+  font-family:var(--body); font-size:13.5px; color:var(--ink);
+}
+.cmdk-item .cmdk-icon{ font-family:var(--mono); font-size:11px; color:var(--signal); width:20px; flex-shrink:0; }
+.cmdk-item .cmdk-sub{ font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-left:auto; }
+.cmdk-item:hover, .cmdk-item.active{ background:var(--card-2); }
+.cmdk-empty{ padding:24px 12px; text-align:center; font-family:var(--mono); font-size:12px; color:var(--muted); }
+
+footer{ padding:32px 0 60px; font-family:var(--mono); font-size:11px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+
+.reveal{ opacity:0; transform:translateY(24px) scale(.985); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.in{ opacity:1; transform:translateY(0) scale(1); }
+
+/* staggered children for grids/lists — delay increases per item */
+.other-grid.reveal.in .ocell,
+.skills-grid.reveal.in .skillcell,
+.timeline.reveal.in .trow,
+.services.reveal.in .srow{ animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) backwards; }
+.other-grid .ocell:nth-child(1), .skills-grid .skillcell:nth-child(1), .timeline .trow:nth-child(1), .services .srow:nth-child(1){ animation-delay:.05s; }
+.other-grid .ocell:nth-child(2), .skills-grid .skillcell:nth-child(2), .timeline .trow:nth-child(2), .services .srow:nth-child(2){ animation-delay:.12s; }
+.other-grid .ocell:nth-child(3), .skills-grid .skillcell:nth-child(3), .timeline .trow:nth-child(3), .services .srow:nth-child(3){ animation-delay:.19s; }
+.other-grid .ocell:nth-child(4), .skills-grid .skillcell:nth-child(4), .services .srow:nth-child(4){ animation-delay:.26s; }
+.other-grid .ocell:nth-child(5), .services .srow:nth-child(5){ animation-delay:.33s; }
+.other-grid .ocell:nth-child(6){ animation-delay:.4s; }
+.services .srow:nth-child(6){ animation-delay:.4s; }
+@keyframes fadeUp{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+/* hero entrance on load, independent of scroll */
+.hero > div > *{ opacity:0; transform:translateY(16px); animation:heroIn .7s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero .eyebrow{animation-delay:.05s;}
+.hero h1{animation-delay:.15s;}
+.hero .role{animation-delay:.28s;}
+.hero .lede{animation-delay:.38s;}
+.hero .hero-meta{animation-delay:.48s;}
+.hero .hero-actions{animation-delay:.58s;}
+.hero .hero-subcta{animation-delay:.66s;}
+.hero .avatar-frame{opacity:0; transform:translateY(16px) scale(.97); animation:heroIn .8s cubic-bezier(.2,.7,.2,1) .3s forwards;}
+@keyframes heroIn{ to{opacity:1; transform:translateY(0) scale(1);} }
+
+/* ================================================================
+   ADDED: extra animation layer — tilt cards, chip pop-in, header
+   scramble/decode, and an active-case scroll highlight.
+   ================================================================ */
+
+/* 3D tilt on hover for case screenshots, other-project cells and
+   the "how I work" / "why work with me" cells — JS sets the
+   rotateX/rotateY, this just gives it a smooth spring-back and depth */
+.window, .ocell, .tcell{ transform-style:preserve-3d; will-change:transform; transition:transform .35s cubic-bezier(.2,.7,.2,1), background .25s; }
+.window{ transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s; }
+.window.tilting{ transition:transform .05s linear; box-shadow:0 20px 45px -12px rgba(0,0,0,.5); }
+.ocell.tilting, .tcell.tilting{ transition:transform .05s linear; }
+
+/* chip / tag pop-in — individual elements animate in with a slight
+   scale + rise, staggered via inline animation-delay set in JS */
+@keyframes chipPop{ from{ opacity:0; transform:translateY(8px) scale(.85); } to{ opacity:1; transform:translateY(0) scale(1); } }
+.chip.chip-pop, .tag.chip-pop{ animation:chipPop .4s cubic-bezier(.2,.7,.2,1) backwards; }
+
+/* section-header scramble/decode target — no visual change at rest,
+   JS swaps character content in place */
+.sec-head h2.scramble-ready{ font-variant-ligatures:none; }
+
+/* active case — the case card currently most centered in the viewport
+   gets a subtle lift + glow, giving scroll a sense of "focus" moving
+   down the page through the case studies */
+.case{ transition:border-color .3s, transform .3s, box-shadow .3s; }
+.case.case-active{ border-color:var(--signal); box-shadow:0 24px 60px rgba(0,0,0,.4), 0 0 0 1px var(--signal-glow), 0 0 50px -12px var(--signal-glow); }
+.case.case-active .case-index{ color:var(--signal-2); }
+@media (prefers-reduced-motion: reduce){ .case.case-active{ box-shadow:none; } }
+</style>
+</head>
+<body>
+
+<div id="dot"></div>
+<div id="ring"></div>
+<canvas id="cursor-trail"></canvas>
+<div id="progress"></div>
+<canvas id="net-bg"></canvas>
+<div id="grid-bg"></div>
+<div id="highlight-bg"></div>
+<div id="grain-bg"></div>
+<div id="particles"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="shell">
+
+  <header class="navbar" id="navbar">
+    <div class="nav-mark"><span class="status-dot"></span>R.BODRA<span>·</span>AUTOMATION</div>
+    <nav id="navLinks">
+      <a href="#work" data-n="01">Work</a>
+      <a href="#services" data-n="02">Services</a>
+      <a href="#experience" data-n="03">Experience</a>
+      <a href="#about" data-n="04">About</a>
+      <a href="#contact" data-n="05">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-status">AVAILABLE FOR FREELANCE · SURAT, IN</div>
+      <div class="nav-socials">
+        <a href="https://www.linkedin.com/in/rushit-bodra-ml/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        <a href="https://github.com/Rushit16102004" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bodrarushit@gmail.com" target="_blank" rel="noopener" aria-label="Email" title="Send email via Gmail (bodrarushit@gmail.com)">✉</a>
+      </div>
+      <button class="cmdk-trigger" id="cmdkTrigger" aria-label="Open command palette">
+        <span class="cmdk-label">Jump to…</span><kbd id="cmdkKbdHint">⌘K</kbd>
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a href="#contact" class="nav-cta">Discuss Your Project</a>
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <!-- ================= COMMAND PALETTE ================= -->
+  <div id="cmdk-overlay" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk-panel">
+      <div class="cmdk-input-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="cmdk-input" type="text" placeholder="Jump to a section, project, or contact link…" autocomplete="off" spellcheck="false">
+        <span class="cmdk-esc">ESC</span>
+      </div>
+      <div class="cmdk-list" id="cmdk-list"></div>
+    </div>
+  </div>
+
+  <main>
+
+    <section class="hero reveal" id="top">
+      <div>
+        <div class="eyebrow">Machine Learning &amp; AI Developer</div>
+        <h1>I build machine learning models,<br>AI applications, and automation<br>systems that turn data and<br>business problems into <em>practical solutions</em>.</h1>
+        <div class="role"><span id="typedRole">Building AI agents...</span><span class="cursor-blink"></span></div>
+        <p class="lede">
+          I'm Rushit — I design and build automation systems, AI-powered applications, and machine
+          learning pipelines that solve real business problems. Below: 3 in-depth case studies, plus
+          other work across data applications and NLP.
+        </p>
+        <div class="hero-meta">
+          <div class="item"><div class="num" data-count="1.2">0</div><div class="lab">M+ RECORDS PROCESSED</div></div>
+          <div class="item"><div class="num" data-count="15">0</div><div class="lab">ML FEATURES ENGINEERED</div></div>
+        </div>
+        <div class="hero-actions">
+          <a href="#work" class="btn primary">View My Work ↓</a>
+          <a href="#contact" class="btn">Discuss Your Project →</a>
+        </div>
+        <p class="hero-subcta"><a href="#contact">Have a workflow you want to automate? Tell me what you're doing manually →</a></p>
+      </div>
+
+      <div class="avatar-frame">
+        <canvas id="avatarCanvas"></canvas>
+        <div class="avatar-ring"></div>
+        <div class="avatar-photo">
+          <img src="avatar.png" alt="Rushit Bodra">
+          <div class="avatar-scan"></div>
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        </div>
+        <div class="avatar-tag">📸 Rushit Bodra</div>
+      </div>
+    </section>
+
+    <!-- ================= SLOGAN ================= -->
+    <div class="slogan-strip reveal">
+      <h3>Two real-world engineering roles. One production ML pipeline running on 1.2M+ real records. <span class="accent">That's the experience every project I take on builds on.</span></h3>
+      <p>I've spent the last year working through messy data, shifting requirements, and real deadlines — not just tutorials. Your project gets that experience, applied to your data.</p>
+    </div>
+
+    <!-- ================= WHY WORK WITH ME ================= -->
+    <section id="why">
+      <div class="sec-head reveal">
+        <h2>Why work with me</h2>
+        <p>WHAT THAT ACTUALLY MEANS FOR YOUR PROJECT</p>
+      </div>
+      <div class="trust-grid reveal">
+        <div class="tcell">
+          <span class="tnum">01</span>
+          <h4>Production-minded</h4>
+          <p>I build complete, usable systems instead of stopping at a notebook or a model — currently running a live pipeline on 1.2M+ real records at Supernal Ventures.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">02</span>
+          <h4>End-to-end development</h4>
+          <p>I can work across data processing, feature engineering, AI/ML, APIs, dashboards, and deployment — not just one slice of the stack.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">03</span>
+          <h4>Business-focused</h4>
+          <p>I start with the problem and the workflow before choosing the technology, so the output is something your team can actually use.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">04</span>
+          <h4>Freelance ready</h4>
+          <p>Available now for AI automation, machine learning, and data-application projects, based in Surat (GMT+5:30), and quick to respond.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WORK ================= -->
+    <section id="work">
+      <div class="sec-head reveal">
+        <h2>Featured case studies</h2>
+        <p>3 SELECTED PROJECTS — PROBLEM, PROCESS &amp; STACK FOR EACH</p>
+      </div>
+
+      <!-- CASE 01 -->
+      <div class="case reveal">
+        <div class="case-top">
+          <div>
+            <div class="case-index">CASE 01 / 03</div>
+            <div class="case-title">AI Algo Trading Console</div>
+            <p class="case-sub">A real-time hybrid ML/RL trading and risk console that automates market-regime classification, signal prediction, and dynamic lot sizing across 1.2M+ time-series records.</p>
+            <div class="case-tags"><span class="tag">Algo Trading</span><span class="tag">Reinforcement Learning</span><span class="tag">Time-Series</span><span class="tag">LightGBM &amp; PyTorch</span></div>
+          </div>
+          <div class="case-meta">
+            <div class="role">Quantitative &amp; ML Engineer</div>
+            <div>2026</div>
+            <div>Independent project</div>
+          </div>
+        </div>
+
+        <div class="window">
+          <div class="window-bar"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">algo-trading-console.live</div></div>
+          <div class="window-shot">
+            <div class="slideshow" data-interval="3000">
+              <div class="slide active"><img src="algo-trading-console/Screenshot 2026-09-20 114814.png" alt="Algo Trading Console — Live ML Signals &amp; Multi-Model Prediction Engine"></div>
+              <div class="slide"><img src="algo-trading-console/Screenshot 2026-09-20 114837.png" alt="Algo Trading Console — Candlestick Chart, Performance &amp; Risk Metrics"></div>
+              <div class="slide"><img src="algo-trading-console/Screenshot 2026-09-20 114937.png" alt="Algo Trading Console — Execution Signals, Risk Entry Points &amp; Volume"></div>
+            </div>
+            <div class="slideshow-dots"><span class="active"></span><span></span><span></span></div>
+          </div>
+          <div class="window-actions">
+            <a href="https://github.com/Rushit16102004/algo-trading-console" target="_blank" rel="noopener" class="mini-btn">GitHub repo ↗</a>
+          </div>
+        </div>
+
+        <div class="case-detail">
+          <div class="dcell">
+            <h4>Problem statement</h4>
+            <p>Manual strategies couldn't process 1.2M+ high-frequency records fast enough or adapt to shifting market regimes, leading to inconsistent win rates, delayed entry/exit executions, and unpredictable drawdowns.</p>
+          </div>
+          <div class="dcell">
+            <h4>Why it needed solving</h4>
+            <p>Automated, regime-aware decision-making eliminates emotional and manual bias, providing systematic risk management, dynamic lot sizing, and consistent execution during high market volatility.</p>
+          </div>
+          <div class="dcell">
+            <h4>How I implemented it</h4>
+            <p>Built a full-featured algo trading console combining a PyTorch TCN for sequence modeling, LightGBM for classification, and Gaussian HMM for regime detection, orchestrated with a DRQN (LSTM) reinforcement-learning decision engine. Implemented 15+ engineered features (Hurst Exponent, Market Structure Shifts), a Dynamic Lot Sizer with Thermal Dissipation (+a PnL Win Run), ATR trailing stop-loss, and real-time tick streaming with institutional risk metric tracking.</p>
+          </div>
+        </div>
+
+        <div class="case-stack">
+          <div class="stack-row">
+            <div class="stack-group"><h5>Languages</h5><div class="stack-chips"><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span></div></div>
+            <div class="stack-group"><h5>ML / DL Frameworks</h5><div class="stack-chips"><span class="chip">PyTorch (TCN)</span><span class="chip">LightGBM</span><span class="chip">Gaussian HMM</span><span class="chip">DRQN (LSTM)</span></div></div>
+            <div class="stack-group"><h5>Outcome</h5><div class="stack-chips"><span class="chip">↑ 50% Win Rate</span><span class="chip">1.73 Profit Factor</span><span class="chip">Thermal Lot Sizing</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 02 -->
+      <div class="case reveal">
+        <div class="case-top">
+          <div>
+            <div class="case-index">CASE 02 / 03</div>
+            <div class="case-title">ReplyBridge — AI Email First Responder</div>
+            <p class="case-sub">A safety-first SaaS platform that connects securely to Gmail via OAuth 2.0 to triage incoming messages, detect sensitive data &amp; phishing scams, and schedule natural human-like acknowledgements.</p>
+            <div class="case-tags"><span class="tag">AI Email Agent</span><span class="tag">Google Gemini API</span><span class="tag">FastAPI</span><span class="tag">Next.js</span></div>
+          </div>
+          <div class="case-meta">
+            <div class="role">Full-Stack &amp; AI Engineer</div>
+            <div>2026</div>
+            <div>Production SaaS</div>
+          </div>
+        </div>
+
+        <div class="window">
+          <div class="window-bar"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">replybridge-frontend.onrender.com</div></div>
+          <div class="window-shot">
+            <div class="slideshow" data-interval="3000">
+              <div class="slide active"><img src="ReplyBridge/Screenshot 2026-08-22 135106.png" alt="ReplyBridge — AI Email First Responder Landing Page &amp; Safety Pipeline"></div>
+              <div class="slide"><img src="ReplyBridge/Screenshot 2026-08-22 142447.png" alt="ReplyBridge — Inbox Triage, Importance Scoring &amp; AI Responder Console"></div>
+              <div class="slide"><img src="ReplyBridge/Screenshot 2026-08-22 142550.png" alt="ReplyBridge — AI Response Behavior, Tone Profiles &amp; Custom Prompts"></div>
+              <div class="slide"><img src="ReplyBridge/Screenshot 2026-08-22 142557.png" alt="ReplyBridge — Advanced Safety Protection &amp; Sensitive Category Locks"></div>
+            </div>
+            <div class="slideshow-dots"><span class="active"></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="window-actions">
+            <a href="https://github.com/Rushit16102004/ReplyBridge" target="_blank" rel="noopener" class="mini-btn">GitHub repo ↗</a>
+            <a href="https://replybridge-frontend.onrender.com" target="_blank" rel="noopener" class="mini-btn live">Open live app ↗</a>
+          </div>
+        </div>
+
+        <div class="case-detail">
+          <div class="dcell">
+            <h4>Problem statement</h4>
+            <p>Email overload and delayed response times lead to lost business opportunities and user burnout. Existing auto-responders either send generic static replies or risk inaccurate AI hallucinations without security filters — leaving users exposed to phishing scams and accidental leakage of sensitive credentials or OTPs.</p>
+          </div>
+          <div class="dcell">
+            <h4>Why it needed solving</h4>
+            <p>Individuals and companies spend hours manually sorting and acknowledging emails. An autonomous AI responder must be safety-first: delivering intelligent prioritization (0–100 score) while proactively blocking automated replies to phishing threats, password resets, and confidential threads.</p>
+          </div>
+          <div class="dcell">
+            <h4>How I implemented it</h4>
+            <p>Integrated Google Gemini API using Pydantic structured schemas for deterministic parsing, multi-tier importance scoring, tone classification, and phishing heuristics. Built an asynchronous FastAPI REST backend with SQLAlchemy and Google OAuth 2.0, paired with a 3-column Next.js/Tailwind triage dashboard, sandboxed iframe viewer, and a smart delay-send queue that auto-cancels if the user replies manually.</p>
+          </div>
+        </div>
+
+        <div class="case-stack">
+          <div class="stack-row">
+            <div class="stack-group"><h5>Languages</h5><div class="stack-chips"><span class="chip">Python 3.11</span><span class="chip">TypeScript</span><span class="chip">HTML5 / Tailwind</span><span class="chip">SQL</span></div></div>
+            <div class="stack-group"><h5>ML / DL Frameworks &amp; AI Tools</h5><div class="stack-chips"><span class="chip">Google Gemini API</span><span class="chip">Pydantic v2</span><span class="chip">FastAPI</span><span class="chip">Next.js</span><span class="chip">OAuth 2.0</span></div></div>
+            <div class="stack-group"><h5>Outcome</h5><div class="stack-chips"><span class="chip">↑ 80% Triage Speed</span><span class="chip">100% Phishing &amp; Leak Block</span><span class="chip">Production Deployed</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 03 -->
+      <div class="case reveal">
+        <div class="case-top">
+          <div>
+            <div class="case-index">CASE 03 / 03</div>
+            <div class="case-title">AI Company Research Assistant</div>
+            <p class="case-sub">An agentic AI platform that researches any company from just a name or URL — crawling its site, indexing search results, mapping competitors, and compiling a ReportLab PDF, with results also pushed to Discord.</p>
+            <div class="case-tags"><span class="tag">Agentic AI</span><span class="tag">Web Crawling</span><span class="tag">LLM Synthesis</span></div>
+          </div>
+          <div class="case-meta">
+            <div class="role">AI/Automation Engineer</div>
+            <div>2026</div>
+            <div>Independent project</div>
+          </div>
+        </div>
+
+        <div class="window">
+          <div class="window-bar"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">relu-company-research-1.onrender.com</div></div>
+          <div class="window-shot">
+            <div class="slideshow" data-interval="3000">
+              <div class="slide active"><img src="relu/Screenshot 2026-08-11 112718.png" alt="Relu Company Research — Dashboard"></div>
+              <div class="slide"><img src="relu/Screenshot 2026-08-11 112733.png" alt="Relu Company Research — Research Details"></div>
+              <div class="slide"><img src="relu/Screenshot 2026-08-11 112839.png" alt="Relu Company Research — Generated Report Output"></div>
+            </div>
+            <div class="slideshow-dots"><span class="active"></span><span></span><span></span></div>
+          </div>
+          <div class="window-actions">
+            <a href="https://github.com/Rushit16102004/AI-Company-Research-Assistant" target="_blank" rel="noopener" class="mini-btn">GitHub repo ↗</a>
+            <a href="https://relu-company-research-1.onrender.com" target="_blank" rel="noopener" class="mini-btn live">Open live demo ↗</a>
+          </div>
+        </div>
+
+        <div class="case-detail">
+          <div class="dcell">
+            <h4>Problem statement</h4>
+            <p>Researching a company for sales, hiring, or due diligence means manually hunting across the company site, news, and competitor listings — slow and inconsistent from one company to the next.</p>
+          </div>
+          <div class="dcell">
+            <h4>Why it needed solving</h4>
+            <p>A single input — a name or URL — turning into a structured, shareable report saves hours per lookup and gives every research pass the same depth and format.</p>
+          </div>
+          <div class="dcell">
+            <h4>How I implemented it</h4>
+            <p>Built an agent pipeline on FastAPI that crawls the target site for contacts and public info, queries Serper.dev for news and competitor data, then runs OpenRouter LLM synthesis (Gemini 2.5) to generate a SWOT-style analysis. Results are compiled into a paginated ReportLab PDF and optionally pushed to a Discord channel via bot integration.</p>
+          </div>
+        </div>
+
+        <div class="case-stack">
+          <div class="stack-row">
+            <div class="stack-group"><h5>Languages</h5><div class="stack-chips"><span class="chip">Python</span></div></div>
+            <div class="stack-group"><h5>Frameworks / APIs</h5><div class="stack-chips"><span class="chip">FastAPI</span><span class="chip">OpenRouter (Gemini 2.5)</span><span class="chip">Serper.dev</span><span class="chip">ReportLab</span><span class="chip">Discord Bot API</span></div></div>
+            <div class="stack-group"><h5>Outcome</h5><div class="stack-chips"><span class="chip">Automated company intel reports</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-strip reveal">
+        <p>Have a similar problem? I can build the system for you.</p>
+        <a href="#contact" class="btn primary">Discuss Your Project →</a>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section id="services">
+      <div class="sec-head reveal">
+        <h2>Services</h2>
+        <p>WHAT CLIENTS CAN HIRE ME FOR</p>
+      </div>
+      <div class="services reveal">
+        <div class="srow"><h4>AI Automation</h4><span>Automate repetitive business workflows using Python, APIs and AI.</span></div>
+        <div class="srow"><h4>AI Agents</h4><span>Build AI-powered agents for research, documents, data analysis and business workflows.</span></div>
+        <div class="srow"><h4>Machine Learning</h4><span>Build prediction, classification, recommendation and forecasting systems.</span></div>
+        <div class="srow"><h4>Data Applications</h4><span>Build dashboards, analytics applications and automated data pipelines.</span></div>
+        <div class="srow"><h4>Trading &amp; Backtesting</h4><span>Build market-data processing, strategy backtesting and trading analytics systems.</span></div>
+      </div>
+
+      <div class="cta-strip reveal">
+        <p>Have a workflow you want to automate? Tell me what you're doing manually.</p>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bodrarushit@gmail.com&su=Automating%20a%20workflow&body=Here%27s%20what%20I%27m%20currently%20doing%20manually%3A%0A%0A" target="_blank" rel="noopener" class="btn primary">Tell Me What You're Doing →</a>
+      </div>
+    </section>
+
+    <!-- ================= HOW I WORK ================= -->
+    <section id="how">
+      <div class="sec-head reveal">
+        <h2>How I work</h2>
+        <p>A SIMPLE, PREDICTABLE PROCESS FROM PROBLEM TO SHIPPED SYSTEM</p>
+      </div>
+      <div class="process-grid reveal">
+        <div class="tcell">
+          <span class="tnum">01</span>
+          <h4>Understand</h4>
+          <p>Understand the requirements, workflow and business problem.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">02</span>
+          <h4>Design</h4>
+          <p>Define the architecture and implementation approach.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">03</span>
+          <h4>Build</h4>
+          <p>Develop, test and iterate on the solution.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">04</span>
+          <h4>Deploy</h4>
+          <p>Deploy the application and provide setup/documentation.</p>
+        </div>
+        <div class="tcell">
+          <span class="tnum">05</span>
+          <h4>Support</h4>
+          <p>Help with fixes, improvements and future features.</p>
+        </div>
+      </div>
+
+      <div class="cta-strip reveal">
+        <p>Have a data or ML problem to solve?</p>
+        <a href="#contact" class="btn primary">Discuss Your Project →</a>
+      </div>
+    </section>
+
+    <!-- ================= OTHER PROJECTS ================= -->
+    <section id="other">
+      <div class="sec-head reveal">
+        <h2>Other projects</h2>
+        <p>SMALLER WORK — QUICK PROOF THIS ISN'T A ONE-TRICK PORTFOLIO</p>
+      </div>
+      <div class="other-grid reveal">
+        <div class="ocell">
+          <div class="otag">Full-Stack + ML</div>
+          <h4>Movie Recommendation System</h4>
+          <p>Content-based recommender with secure user auth, built with Python, Streamlit &amp; SQLite.</p>
+          <a href="https://github.com/Rushit16102004/Movie-recommender" target="_blank" rel="noopener" class="olink">View on GitHub →</a>
+        </div>
+        <div class="ocell">
+          <div class="otag">NLP</div>
+          <h4>Sentiment Analysis (Amazon Reviews)</h4>
+          <p>Text preprocessing, TF-IDF, and sentiment classification for actionable business insight.</p>
+          <a href="https://github.com/Rushit16102004/sentimate-analysis-amazon-review" target="_blank" rel="noopener" class="olink">View on GitHub →</a>
+        </div>
+        <div class="ocell">
+          <div class="otag">Time-Series ML</div>
+          <h4>Sales Forecasting System</h4>
+          <p>Time-series forecasting pipeline built in Python to predict future sales demand and optimize inventory planning.</p>
+          <a href="https://github.com/Rushit16102004/Sales-Forecasting-System" target="_blank" rel="noopener" class="olink">View on GitHub →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills">
+      <div class="sec-head reveal">
+        <h2>Skills &amp; stack</h2>
+        <p>WHAT I FREELANCE IN</p>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="skillcell">
+          <h5>Languages</h5>
+          <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span></div>
+        </div>
+        <div class="skillcell">
+          <h5>ML / DL Frameworks</h5>
+          <div class="chips"><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">Scikit-learn</span><span class="chip">LightGBM</span></div>
+        </div>
+        <div class="skillcell">
+          <h5>Techniques</h5>
+          <div class="chips"><span class="chip">Time-Series</span><span class="chip">TCN / LSTM</span><span class="chip">NLP</span><span class="chip">Reinforcement Learning</span></div>
+        </div>
+        <div class="skillcell">
+          <h5>Tools &amp; Platforms</h5>
+          <div class="chips"><span class="chip">Power BI</span><span class="chip">Streamlit</span><span class="chip">SQLite</span><span class="chip">Git / GitHub</span></div>
+        </div>
+      </div>
+
+      <div class="marquee reveal">
+        <div class="marquee-track">
+          <span><em>01</em>Python</span><span><em>02</em>PyTorch</span><span><em>03</em>LightGBM</span><span><em>04</em>Power BI</span><span><em>05</em>NLP</span><span><em>06</em>SQL</span><span><em>07</em>Scikit-learn</span>
+          <span><em>01</em>Python</span><span><em>02</em>PyTorch</span><span><em>03</em>LightGBM</span><span><em>04</em>Power BI</span><span><em>05</em>NLP</span><span><em>06</em>SQL</span><span><em>07</em>Scikit-learn</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience">
+      <div class="sec-head reveal">
+        <h2>Experience</h2>
+        <p>WHERE I'VE APPLIED THIS WORK</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="trow">
+          <div class="tdate">FEB 2026 — PRESENT</div>
+          <div>
+            <h4>Python Developer Intern (AIML)</h4>
+            <div class="torg">Supernal Ventures Pvt. Ltd.</div>
+            <p>Architected an end-to-end ML pipeline on 1.2M+ high-frequency time-series records using an ensemble of PyTorch TCN, LightGBM, and Gaussian HMM for market regime classification and forecasting.</p>
+          </div>
+        </div>
+        <div class="trow">
+          <div class="tdate">JUL 2025 — AUG 2025</div>
+          <div>
+            <h4>Data Analytics &amp; Machine Learning</h4>
+            <div class="torg">Infolabz IT Services Pvt. Ltd. (Remote)</div>
+            <p>Built ML models with Python and Scikit-learn, performed data cleaning, EDA, and feature engineering, and created interactive Power BI dashboards for decision-making.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="sec-head reveal">
+        <h2>About</h2>
+        <p>WHO'S BUILDING THIS</p>
+      </div>
+      <p class="about-intro reveal">
+        I'm Rushit Bodra, an AI/ML developer focused on building practical AI, automation and data
+        systems. I work primarily with Python and modern AI/ML tools, with experience across machine
+        learning, time-series systems, automation, dashboards and real-time data applications. I'm
+        available for freelance projects involving AI automation, machine learning, data applications
+        and trading/backtesting systems.
+      </p>
+      <div class="about-credentials reveal">B.E. Computer Science — Ahmedabad Institute of Technology · Google Cloud AI Certified</div>
+
+      <div class="quote-block reveal">
+        <div class="eyebrow">A note on how I work</div>
+        <p class="quote">Every model I ship starts with a business question, not an algorithm — <span>the tooling is only as good as the decision it improves</span>.</p>
+        <div class="quote-by">— Rushit Bodra</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="eyebrow reveal">Get in touch</div>
+      <h2 class="reveal">Have a data or ML problem to solve?<br>Let's build it.</h2>
+      <p class="lede reveal">Have a workflow you want to automate? Tell me what you're doing manually — I'll tell you what's worth automating and what isn't.</p>
+      <div class="contact-links reveal">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bodrarushit@gmail.com" target="_blank" rel="noopener"><span>Email</span><span>bodrarushit@gmail.com <span class="arrow">→</span></span></a>
+        <a href="tel:+918160034453"><span>Phone</span><span>+91-8160034453 <span class="arrow">→</span></span></a>
+        <a href="https://www.linkedin.com/in/rushit-bodra-ml/" target="_blank" rel="noopener"><span>LinkedIn</span><span>rushit-bodra-ml <span class="arrow">→</span></span></a>
+        <a href="https://github.com/Rushit16102004" target="_blank" rel="noopener"><span>GitHub</span><span>@Rushit16102004 <span class="arrow">→</span></span></a>
+        <a href="https://drive.google.com/file/d/1t8o4ldw1OIARUMQXVnZYaDhFBr5BJ4zf/view?usp=drive_link" target="_blank" rel="noopener"><span>Resume</span><span>View / Download PDF <span class="arrow">→</span></span></a>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Rushit Bodra. All rights reserved.</div>
+      <div>Built with intention.</div>
+    </footer>
+
+  </main>
+</div>
+
+<button id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+  const dot = document.getElementById('dot');
+  const ring = document.getElementById('ring');
+  const hasFinePointer = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------------- theme toggle (dark/light, persisted) ----------------
+  (function(){
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const stored = (() => { try { return localStorage.getItem('rb-theme'); } catch(e){ return null; } })();
+    const initial = stored || 'dark';
+    if(initial === 'light') root.setAttribute('data-theme','light');
+    if(btn){
+      btn.addEventListener('click', () => {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        if(isLight){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','light'); }
+        try { localStorage.setItem('rb-theme', isLight ? 'dark' : 'light'); } catch(e){}
+      });
+    }
+  })();
+
+  // ---------------- hero typing/terminal animation ----------------
+  (function(){
+    const el = document.getElementById('typedRole');
+    if(!el) return;
+    const phrases = [
+      'Building AI agents...',
+      'Training ML models...',
+      'Automating workflows...',
+      'Shipping production pipelines...'
+    ];
+    if(prefersReducedMotion){ el.textContent = phrases[0]; return; }
+    let p = 0, i = phrases[0].length, deleting = false;
+    el.textContent = phrases[0];
+    function tick(){
+      const current = phrases[p];
+      if(!deleting){
+        i++;
+        if(i > current.length){ deleting = true; setTimeout(tick, 1400); return; }
+      } else {
+        i--;
+        if(i < 0){ deleting = false; p = (p + 1) % phrases.length; i = 0; setTimeout(tick, 300); return; }
+      }
+      el.textContent = current.slice(0, i);
+      setTimeout(tick, deleting ? 28 : 46);
+    }
+    setTimeout(tick, 1400);
+  })();
+
+  // ---------------- magnetic buttons ----------------
+  if(hasFinePointer && !prefersReducedMotion){
+    const magnets = document.querySelectorAll('.btn, .nav-cta, .mini-btn, .theme-toggle, .cmdk-trigger, #toTop');
+    magnets.forEach(el => {
+      let raf = null;
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const mx = e.clientX - (r.left + r.width/2);
+        const my = e.clientY - (r.top + r.height/2);
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          el.style.transform = `translate(${mx*0.22}px, ${my*0.28}px)`;
+        });
+      });
+      el.addEventListener('mouseleave', () => {
+        if(raf) cancelAnimationFrame(raf);
+        el.style.transform = '';
+      });
+    });
+  }
+
+  // ---------------- 3D tilt on case screenshots, other-project cells & why/how cells ----------------
+  if(hasFinePointer && !prefersReducedMotion){
+    const tiltEls = document.querySelectorAll('.window, .ocell, .tcell');
+    tiltEls.forEach(el => {
+      const maxDeg = el.classList.contains('window') ? 4 : 6;
+      let raf = null;
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          el.classList.add('tilting');
+          el.style.transform = `perspective(900px) rotateY(${px*maxDeg}deg) rotateX(${-py*maxDeg}deg) translateY(-3px)`;
+        });
+      });
+      el.addEventListener('mouseleave', () => {
+        if(raf) cancelAnimationFrame(raf);
+        el.classList.remove('tilting');
+        el.style.transform = '';
+      });
+    });
+  }
+
+  // ---------------- staggered chip / tag pop-in when their group scrolls into view ----------------
+  (function(){
+    if(prefersReducedMotion) return;
+    const groups = document.querySelectorAll('.chips, .stack-chips, .case-tags');
+    const chipIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if(!en.isIntersecting) return;
+        const items = en.target.querySelectorAll('.chip, .tag');
+        items.forEach((item, i) => {
+          item.style.animationDelay = (i * 0.06) + 's';
+          item.classList.add('chip-pop');
+        });
+        chipIO.unobserve(en.target);
+      });
+    }, { threshold: 0.3 });
+    groups.forEach(g => chipIO.observe(g));
+  })();
+
+  // ---------------- section-header scramble/decode effect ----------------
+  (function(){
+    if(prefersReducedMotion) return;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ01#$%_/\\';
+    function scramble(el){
+      const final = el.textContent;
+      const len = final.length;
+      let frame = 0;
+      const totalFrames = 16;
+      el.classList.add('scramble-ready');
+      const tick = () => {
+        frame++;
+        const revealCount = Math.floor((frame / totalFrames) * len);
+        let out = '';
+        for(let i = 0; i < len; i++){
+          if(i < revealCount || final[i] === ' ' || final[i] === '\n'){ out += final[i]; }
+          else{ out += chars[Math.floor(Math.random() * chars.length)]; }
+        }
+        el.textContent = out;
+        if(frame < totalFrames){ requestAnimationFrame(tick); }
+        else{ el.textContent = final; }
+      };
+      tick();
+    }
+    const headers = document.querySelectorAll('.sec-head h2');
+    const headIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if(en.isIntersecting){ scramble(en.target); headIO.unobserve(en.target); }
+      });
+    }, { threshold: 0.6 });
+    headers.forEach(h => headIO.observe(h));
+  })();
+
+  // ---------------- active-case scroll highlight ----------------
+  // the case study card most centered in the viewport gets a focused
+  // border/glow, so scrolling through Featured Work feels directional
+  (function(){
+    const cases = document.querySelectorAll('.case');
+    if(!cases.length) return;
+    const caseIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        en.target.classList.toggle('case-active', en.isIntersecting);
+      });
+    }, { threshold: 0.55 });
+    cases.forEach(c => caseIO.observe(c));
+  })();
+
+  // ---------------- command palette (Cmd/Ctrl+K) ----------------
+  (function(){
+    const overlay = document.getElementById('cmdk-overlay');
+    const input = document.getElementById('cmdk-input');
+    const list = document.getElementById('cmdk-list');
+    const trigger = document.getElementById('cmdkTrigger');
+    const kbdHint = document.getElementById('cmdkKbdHint');
+    if(!overlay || !input || !list) return;
+
+    if(navigator.platform && !/Mac|iPhone|iPod|iPad/.test(navigator.platform)){
+      kbdHint.textContent = 'Ctrl K';
+    }
+
+    const items = [
+      { label: 'Work — Featured case studies', sub: 'Section', action: () => scrollToId('work') },
+      { label: 'AI Algo Trading Console', sub: 'Case 01', action: () => scrollToId('work') },
+      { label: 'ReplyBridge — AI Email Responder', sub: 'Case 02', action: () => scrollToId('work') },
+      { label: 'AI Company Research Agent', sub: 'Case 03', action: () => scrollToId('work') },
+      { label: 'Services', sub: 'Section', action: () => scrollToId('services') },
+      { label: 'How I work', sub: 'Section', action: () => scrollToId('how') },
+      { label: 'Other projects', sub: 'Section', action: () => scrollToId('other') },
+      { label: 'Skills & stack', sub: 'Section', action: () => scrollToId('skills') },
+      { label: 'Experience', sub: 'Section', action: () => scrollToId('experience') },
+      { label: 'About', sub: 'Section', action: () => scrollToId('about') },
+      { label: 'Contact', sub: 'Section', action: () => scrollToId('contact') },
+      { label: 'Email Rushit', sub: 'Gmail compose', action: () => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=bodrarushit@gmail.com', '_blank') },
+      { label: 'Toggle theme', sub: 'Light / Dark', action: () => document.getElementById('themeToggle')?.click() },
+    ];
+
+    function scrollToId(id){
+      const target = document.getElementById(id);
+      if(target) target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+
+    let active = 0;
+    let filtered = items;
+
+    function render(){
+      list.innerHTML = '';
+      if(!filtered.length){
+        list.innerHTML = '<div class="cmdk-empty">No matches</div>';
+        return;
+      }
+      filtered.forEach((it, idx) => {
+        const row = document.createElement('div');
+        row.className = 'cmdk-item' + (idx === active ? ' active' : '');
+        row.innerHTML = `<span class="cmdk-icon">↵</span><span>${it.label}</span><span class="cmdk-sub">${it.sub}</span>`;
+        row.addEventListener('mouseenter', () => { active = idx; render(); });
+        row.addEventListener('click', () => choose(idx));
+        list.appendChild(row);
+      });
+    }
+
+    function choose(idx){
+      const it = filtered[idx];
+      if(!it) return;
+      close();
+      it.action();
+    }
+
+    function filterItems(q){
+      const query = q.trim().toLowerCase();
+      filtered = !query ? items : items.filter(it => it.label.toLowerCase().includes(query));
+      active = 0;
+      render();
+    }
+
+    function open(){
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      filterItems('');
+      setTimeout(() => input.focus(), 30);
+    }
+    function close(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    trigger?.addEventListener('click', open);
+    overlay.addEventListener('click', e => { if(e.target === overlay) close(); });
+    input.addEventListener('input', () => filterItems(input.value));
+    input.addEventListener('keydown', e => {
+      if(e.key === 'ArrowDown'){ e.preventDefault(); active = Math.min(active + 1, filtered.length - 1); render(); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); active = Math.max(active - 1, 0); render(); }
+      else if(e.key === 'Enter'){ e.preventDefault(); choose(active); }
+      else if(e.key === 'Escape'){ close(); }
+    });
+    document.addEventListener('keydown', e => {
+      const isK = e.key === 'k' || e.key === 'K';
+      if((e.metaKey || e.ctrlKey) && isK){ e.preventDefault(); overlay.classList.contains('open') ? close() : open(); }
+      else if(e.key === 'Escape' && overlay.classList.contains('open')){ close(); }
+    });
+  })();
+
+  if(hasFinePointer && dot && ring){
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+    });
+    // ring eases toward the pointer for a soft trailing feel
+    (function loop(){
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(loop);
+    })();
+    // ring grows and fills on anything clickable
+    const hoverables = document.querySelectorAll('a, button, .case, .tcell, .ocell, .skillcell, .chip, .mini-btn');
+    hoverables.forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+  }
+
+  // ---------------- comet-trail cursor effect ----------------
+  // A glowing, fading trail of particles that streams behind the pointer —
+  // layered underneath the existing dot/ring for extra flair.
+  (function(){
+    const canvas = document.getElementById('cursor-trail');
+    if(!canvas || !hasFinePointer || prefersReducedMotion) return;
+    const ctx = canvas.getContext('2d');
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let trail = [];
+    let lastX = null, lastY = null;
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    window.addEventListener('mousemove', e => {
+      const x = e.clientX * dpr, y = e.clientY * dpr;
+      // only add a trail point if the pointer actually moved a bit — keeps the
+      // trail from clumping when the cursor sits still
+      if(lastX === null || Math.hypot(x - lastX, y - lastY) > 3 * dpr){
+        trail.push({ x, y, life: 1 });
+        lastX = x; lastY = y;
+        if(trail.length > 26) trail.shift();
+      }
+    });
+    window.addEventListener('mouseleave', () => { trail = []; });
+
+    function frame(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for(let i = trail.length - 1; i >= 0; i--){
+        const p = trail[i];
+        p.life -= 0.045;
+        if(p.life <= 0){ trail.splice(i, 1); continue; }
+        const r = 3.5 * p.life * dpr;
+        const hueWhite = i % 4 === 0;
+        ctx.beginPath();
+        ctx.fillStyle = hueWhite ? `rgba(255,255,255,${p.life * 0.55})` : `rgba(155,140,255,${p.life * 0.5})`;
+        ctx.shadowBlur = 8 * dpr;
+        ctx.shadowColor = hueWhite ? 'rgba(255,255,255,.8)' : 'rgba(155,140,255,.8)';
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+
+  // ---------------- live avatar-frame background canvas ----------------
+  // Small self-contained particle network that lives behind the photo, in the
+  // padding gap. Runs continuously from load via requestAnimationFrame — not
+  // triggered by hover, click, or scroll. Only pauses entirely for
+  // prefers-reduced-motion.
+  (function(){
+    const canvas = document.getElementById('avatarCanvas');
+    const frame = document.querySelector('.avatar-frame');
+    if(!canvas || !frame) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr, nodes;
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = frame.getBoundingClientRect();
+      w = canvas.width = r.width * dpr;
+      h = canvas.height = r.height * dpr;
+      canvas.style.width = r.width + 'px';
+      canvas.style.height = r.height + 'px';
+    }
+    function makeNodes(){
+      const count = 22;
+      nodes = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.35 * dpr,
+        vy: (Math.random() - 0.5) * 0.35 * dpr,
+        r: (1 + Math.random() * 1.6) * dpr,
+        white: Math.random() < 0.25
+      }));
+    }
+    resize();
+    makeNodes();
+    window.addEventListener('resize', () => { resize(); makeNodes(); });
+
+    const linkDist = 60 * dpr;
+
+    function loop(){
+      ctx.clearRect(0, 0, w, h);
+      for(const n of nodes){
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < 0 || n.x > w) n.vx *= -1;
+        if(n.y < 0 || n.y > h) n.vy *= -1;
+      }
+      for(let i = 0; i < nodes.length; i++){
+        for(let j = i + 1; j < nodes.length; j++){
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          const maxDist = linkDist * (window.innerWidth < 700 ? 1.3 : 1);
+          if(dist < maxDist){
+            const alpha = (1 - dist/maxDist) * 0.45;
+            ctx.strokeStyle = (a.white && b.white) ? `rgba(255,255,255,${alpha})` : `rgba(155,140,255,${alpha})`;
+            ctx.lineWidth = 1 * dpr;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for(const n of nodes){
+        ctx.fillStyle = n.white ? 'rgba(255,255,255,.9)' : 'rgba(155,140,255,.85)';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+  // continuous background network animation — runs on its own the whole time,
+  // completely independent of mouse position, hover, or scroll.
+  (function(){
+    const canvas = document.getElementById('net-bg');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w, h, nodes, dpr;
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = window.innerWidth * dpr;
+      h = canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+    }
+
+    function makeNodes(){
+      const count = window.innerWidth < 700 ? 32 : 60;
+      nodes = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.22 * dpr,
+        vy: (Math.random() - 0.5) * 0.22 * dpr,
+        r: (1.4 + Math.random() * 2) * dpr,
+        white: Math.random() < 0.16
+      }));
+    }
+
+    resize();
+    makeNodes();
+    window.addEventListener('resize', () => { resize(); makeNodes(); });
+
+    // cursor reacts with the network — nodes drift away from the pointer, so the
+    // pattern feels alive across the whole page, not just idly floating.
+    let mouseX = -9999, mouseY = -9999, mouseActive = false;
+    if(hasFinePointer){
+      window.addEventListener('mousemove', e => {
+        mouseX = e.clientX * dpr; mouseY = e.clientY * dpr; mouseActive = true;
+      });
+      document.addEventListener('mouseleave', () => { mouseActive = false; });
+    }
+
+    const linkDist = 170 * (dpr || 1);
+
+    function frame(){
+      ctx.clearRect(0, 0, w, h);
+
+      const repelRadius = 150 * dpr;
+      for(const n of nodes){
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < 0 || n.x > w) n.vx *= -1;
+        if(n.y < 0 || n.y > h) n.vy *= -1;
+
+        if(mouseActive){
+          const dx = n.x - mouseX, dy = n.y - mouseY;
+          const dist = Math.hypot(dx, dy) || 1;
+          if(dist < repelRadius){
+            const force = (1 - dist / repelRadius) * 1.7;
+            n.x += (dx / dist) * force;
+            n.y += (dy / dist) * force;
+          }
+        }
+      }
+
+      for(let i = 0; i < nodes.length; i++){
+        for(let j = i + 1; j < nodes.length; j++){
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          const maxDist = linkDist * (window.innerWidth < 700 ? 1.1 : 1);
+          if(dist < maxDist){
+            const alpha = (1 - dist/maxDist) * 0.34;
+            ctx.strokeStyle = (a.white && b.white) ? `rgba(255,255,255,${alpha * 1.3})` : `rgba(155,140,255,${alpha})`;
+            ctx.lineWidth = 1 * dpr;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for(const n of nodes){
+        ctx.fillStyle = n.white ? 'rgba(255,255,255,.85)' : 'rgba(155,140,255,.7)';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if(!reduceMotion) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+
+  // floating ambient particles drifting up through the page
+  const particleField = document.getElementById('particles');
+  if(particleField && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const count = window.innerWidth < 700 ? 12 : 26;
+    for(let i=0; i<count; i++){
+      const s = document.createElement('span');
+      const size = 2 + Math.random()*3;
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.setProperty('--drift', (Math.random()*80 - 40) + 'px');
+      s.style.animationDuration = (14 + Math.random()*16) + 's';
+      s.style.animationDelay = (Math.random()*20) + 's';
+      s.style.background = i % 5 === 0 ? '#fff' : (i % 3 === 0 ? 'var(--signal-2)' : 'var(--signal)');
+      if(i % 5 === 0) s.style.boxShadow = '0 0 6px rgba(255,255,255,.8)';
+      particleField.appendChild(s);
+    }
+  }
+
+  // subtle 3D tilt on the avatar frame, following the pointer
+  const avatarFrame = document.querySelector('.avatar-frame');
+  if(avatarFrame && hasFinePointer){
+    avatarFrame.addEventListener('mousemove', e => {
+      const r = avatarFrame.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      avatarFrame.style.transform = `perspective(700px) rotateY(${px*10}deg) rotateX(${-py*10}deg) scale(1.02)`;
+    });
+    avatarFrame.addEventListener('mouseleave', () => { avatarFrame.style.transform = ''; });
+  }
+
+  // back-to-top button
+  const toTop = document.getElementById('toTop');
+  if(toTop){
+    window.addEventListener('scroll', () => { toTop.classList.toggle('show', window.scrollY > 700); });
+    toTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  }
+
+  // window-shot screenshot slideshows — auto-advance every 3s (configurable via data-interval), dots are clickable
+  document.querySelectorAll('.window-shot').forEach(wrapper => {
+    const container = wrapper.querySelector('.slideshow');
+    if(!container) return;
+    const slides = [...container.querySelectorAll(':scope > .slide')];
+    if(slides.length < 2) return; // nothing to cycle
+    const dots = wrapper.querySelectorAll('.slideshow-dots span');
+    const interval = parseInt(container.dataset.interval, 10) || 3000;
+    let idx = slides.findIndex(s => s.classList.contains('active'));
+    if(idx < 0) idx = 0;
+    
+    let timer = null;
+
+    function showSlide(newIdx){
+      idx = (newIdx + slides.length) % slides.length;
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    function startTimer(){
+      if(timer) clearInterval(timer);
+      timer = setInterval(() => {
+        showSlide(idx + 1);
+      }, interval);
+    }
+
+    // Set up click listeners on dots
+    dots.forEach((dot, dotIdx) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showSlide(dotIdx);
+        startTimer(); // reset interval timer on manual click
+      });
+    });
+
+    showSlide(idx);
+    startTimer();
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+
+  const navLinks = document.querySelectorAll('.navbar nav a');
+  const sections = [...navLinks].map(l => document.querySelector(l.getAttribute('href')));
+  const navbar = document.getElementById('navbar');
+  const progress = document.getElementById('progress');
+
+  window.addEventListener('scroll', () => {
+    let idx = 0;
+    sections.forEach((s,i) => { if(s && window.scrollY >= s.offsetTop - 200) idx = i; });
+    navLinks.forEach((l,i) => l.classList.toggle('active', i===idx));
+
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+
+    const h = document.documentElement;
+    const scrollPct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progress.style.width = scrollPct + '%';
+  });
+
+  // mobile menu
+  const burger = document.getElementById('burger');
+  const navMenu = document.getElementById('navLinks');
+  const scrim = document.getElementById('navScrim');
+  function closeMenu(){
+    burger.classList.remove('open'); navMenu.classList.remove('open'); scrim.classList.remove('open');
+    burger.setAttribute('aria-expanded','false'); document.body.style.overflow = '';
+  }
+  function toggleMenu(){
+    const isOpen = navMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    scrim.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  burger.addEventListener('click', toggleMenu);
+  scrim.addEventListener('click', closeMenu);
+  navLinks.forEach(l => l.addEventListener('click', closeMenu));
+
+  // count-up animation for hero stats
+  const counters = document.querySelectorAll('.num[data-count]');
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        const el = en.target;
+        const target = parseFloat(el.dataset.count);
+        const isDecimal = String(target).includes('.');
+        let cur = 0;
+        const step = target / 40;
+        const tick = () => {
+          cur += step;
+          if(cur >= target){ el.textContent = (isDecimal ? target.toFixed(1) : target) + '+'; return; }
+          el.textContent = isDecimal ? cur.toFixed(1) : Math.floor(cur);
+          requestAnimationFrame(tick);
+        };
+        tick();
+        countIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countIO.observe(c));
+
+</script>
+
+</body>
+</html>
